@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { useEffect } from "react";
 
-function App() {
+export default function App() {
+  const [hasGameStarted, setHasGameStarted] = useState(false);
+
+  function startGame() {
+    setHasGameStarted(true);
+  }
+
+  if (!hasGameStarted) {
+    return (
+      <main>
+        <div className="start-content">
+          <h1 className="start-content__heading">Quizzical</h1>
+          <p className="start-content__des">
+            Test questions from Open Trivia Database{" "}
+          </p>
+          <button onClick={startGame} className="start-content__btn">
+            Start quiz
+          </button>
+        </div>
+      </main>
+    );
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <div className="quizz"></div>
+    </main>
   );
 }
-
-export default App;
