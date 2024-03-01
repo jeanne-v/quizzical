@@ -1,0 +1,77 @@
+.quiz__item {
+  border: none;
+  border-bottom: 1px solid #dbdef0;
+  padding: 0 0 16px;
+  margin: 16px 0 0;
+}
+
+.quiz__item:first-child {
+  margin: 0;
+}
+
+.quiz__question {
+  font-family: "Karla", sans-serif;
+  font-weight: 700;
+}
+
+.quiz__answers {
+  margin-top: 8px;
+  display: flex;
+  column-gap: 12px;
+  align-items: flex-start;
+}
+
+.quiz__answer {
+  border: 1px solid #4d5b9e;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  padding: 4px 8px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.quiz__answer input {
+  appearance: none;
+  margin: 0;
+}
+
+.quiz__answer-text {
+  font-weight: 500;
+  font-size: 0.625rem; /* 10px */
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.quiz__answer--checked {
+  background-color: #d6dbf5;
+  border-color: #d6dbf5;
+}
+
+.quiz__answer--correct,
+.quiz__answer--wrong,
+.quiz__answer--other-answers {
+  cursor: default;
+}
+
+.quiz__answer--correct .quiz__answer-text,
+.quiz__answer--wrong .quiz__answer-text,
+.quiz__answer--other-answers .quiz__answer-text {
+  cursor: text;
+}
+
+.quiz__answer--correct {
+  background-color: #94d7a2;
+  border-color: #94d7a2;
+}
+
+.quiz__answer--wrong {
+  background-color: #f8bcbc;
+  color: #29326480;
+  border-color: #f8bcbc;
+}
+
+.quiz__answer--other-answers {
+  color: #29326480;
+  border-color: #29326480;
+}
