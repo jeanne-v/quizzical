@@ -5,29 +5,24 @@ import { decode } from "html-entities";
 import QuizItem from "./QuizItem";
 
 export default function App() {
-  const [hasGameStarted, setHasGameStarted] = useState(false);
+  const [isGameOn, setIsGameOn] = useState(false);
   const [quizItems, setQuizItems] = useState("");
   const [formData, setFormData] = useState({});
   const [userErrorMessage, setUserErrorMessage] = useState("");
   const [userScore, setUserScore] = useState([]);
 
-  function startGame() {
-    setHasGameStarted(true);
-  }
+  console.log(quizItems);
 
-  function handleChange(e) {
-    setFormData((prevFormData) => {
-      return {
-        ...prevFormData,
-        [e.target.name]: e.target.value,
-      };
-    });
-    setUserErrorMessage("");
+  function startGame() {
+    setIsGameOn(true);
+    if (userScore.length !== 0) {
+      setUserScore([]);
+    }
   }
 
   // fetch questions (and prepare formData object) when the game starts
   useEffect(() => {
-    if (hasGameStarted) {
+    if (isGameOn) {
       fetch("https://opentdb.com/api.php?amount=5&category=23")
         .then((res) => {
           if (!res.ok) {
@@ -84,7 +79,65 @@ export default function App() {
           console.log(error);
         });
     }
-  }, [hasGameStarted]);
+  }, [isGameOn]);
+
+  function handleChange(e) {
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        [e.target.name]: e.target.value,
+      };
+    });
+    setUserErrorMessage("");
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (userScore.length !== 0) {
+      startGame();
+    } else {
+      const areAllQuestionsAnswered = Object.values(formData).every((field) => {
+        return field !== "";
+      });
+      if (areAllQuestionsAnswered) {
+        checkAnswers();
+      } else {
+        setUserErrorMessage("Please answer all questions !");
+      }
+    }
+  }
+
+  function checkAnswers() {
+    setIsGameOn(false);
+
+    const results = quizItems.map((item) => {
+      const userAnswer = item.answers.find(
+        (answer) => answer.answer === formData[item.id]
+      );
+      return userAnswer.isCorrect;
+    });
+    setUserScore(results);
+  }
+
+  // render start
+  if (isGameOn === false && userScore.length === 0) {
+    return (
+      <main>
+        <div className="start-content">
+          <h1 className="start-content__heading">Quizzical</h1>
+          <p className="start-content__des">
+            Test your history knowledge with questions from the Open Trivia
+            Database !
+          </p>
+          <button onClick={startGame} className="start-content__btn">
+            Start quiz
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  // render quiz
 
   const quizEls = quizItems
     ? quizItems.map((item) => {
@@ -102,47 +155,6 @@ export default function App() {
         );
       })
     : "";
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const areAllQuestionsAnswered = Object.values(formData).every((field) => {
-      return field !== "";
-    });
-    if (areAllQuestionsAnswered) {
-      checkAnswers();
-    } else {
-      setUserErrorMessage("Please answer all questions !");
-    }
-  }
-
-  function checkAnswers() {
-    console.log(quizItems);
-
-    const results = quizItems.map((item) => {
-      const userAnswer = item.answers.find(
-        (answer) => answer.answer === formData[item.id]
-      );
-      return userAnswer.isCorrect;
-    });
-    setUserScore(results);
-  }
-
-  if (!hasGameStarted) {
-    return (
-      <main>
-        <div className="start-content">
-          <h1 className="start-content__heading">Quizzical</h1>
-          <p className="start-content__des">
-            Test your history knowledge with questions from the Open Trivia
-            Database !
-          </p>
-          <button onClick={startGame} className="start-content__btn">
-            Start quiz
-          </button>
-        </div>
-      </main>
-    );
-  }
 
   let quizBottomSection = "";
 
