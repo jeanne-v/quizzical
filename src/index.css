@@ -23,13 +23,15 @@ main {
 
 /* START GAME */
 
-.start-content {
+.start-content,
+.error-content {
   text-align: center;
   margin: 0 32px;
   max-width: 800px;
 }
 
-.start-content__heading {
+.start-content__heading,
+.error-content__heading {
   font-family: "Karla", sans-serif;
   margin: 0;
   font-size: 2rem; /* 32px */
@@ -38,6 +40,14 @@ main {
 
 .start-content__des {
   margin: 16px 0 24px;
+}
+
+.error-content__code {
+  margin: 16px 0 0;
+}
+
+.error-content__des {
+  margin: 8px 0 0;
 }
 
 /* BTNS */
@@ -105,29 +115,30 @@ main {
   }
 }
 
-@media (min-width: 550px) {
-  .start-content {
-    margin: 0 72px;
-  }
-}
-
-@media (min-width: 550px) {
+@media (min-width: 550px) and (max-width: 767px) {
   .quiz {
     margin: 40px 72px;
   }
 }
 
-@media (min-width: 768px) {
-  .start-content__heading {
-    font-size: 3rem; /* 48px */
-  }
-  .start-content__des {
-    font-size: 1.5rem; /* 24px */
-    line-height: 2rem; /* 32px */
+@media (min-width: 550px) {
+  .start-content,
+  .error-content {
+    margin: 0 72px;
   }
 }
 
 @media (min-width: 768px) {
+  .start-content__heading,
+  .error-content__heading {
+    font-size: 3rem; /* 48px */
+  }
+  .start-content__des,
+  .error-content__code {
+    font-size: 1.5rem; /* 24px */
+    line-height: 2rem; /* 32px */
+  }
+
   .quiz {
     margin: 48px 72px 40px;
   }

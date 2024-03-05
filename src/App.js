@@ -10,8 +10,7 @@ export default function App() {
   const [formData, setFormData] = useState({});
   const [userErrorMessage, setUserErrorMessage] = useState("");
   const [userScore, setUserScore] = useState([]);
-
-  console.log(quizItems);
+  const [fetchError, setFetchError] = useState("");
 
   function startGame() {
     setIsGameOn(true);
@@ -28,6 +27,7 @@ export default function App() {
           if (!res.ok) {
             throw new Error(res.status);
           }
+          setFetchError("");
           return res.json();
         })
         .then((data) => {
@@ -76,7 +76,7 @@ export default function App() {
           setFormData(formFields);
         })
         .catch((error) => {
-          console.log(error);
+          setFetchError(error.message);
         });
     }
   }, [isGameOn]);
@@ -132,6 +132,39 @@ export default function App() {
           <button onClick={startGame} className="start-content__btn">
             Start quiz
           </button>
+        </div>
+      </main>
+    );
+  }
+
+  // render fetch error
+  if (fetchError) {
+    if (fetchError === "429") {
+      return (
+        <main>
+          <div className="error-content">
+            <h1 className="error-content__heading">
+              Sorry, something went wrong
+            </h1>
+            <p className="error-content__code">
+              Error {fetchError}: Too Many Requests
+            </p>
+            <p className="error-content__des">
+              It seems you sent too many requests in a short amount of time. The
+              Open Trivia Database API can be accessed only once every 5
+              seconds.
+            </p>
+          </div>
+        </main>
+      );
+    }
+    return (
+      <main>
+        <div className="error-content">
+          <h1 className="error-content__heading">
+            Sorry, something went wrong
+          </h1>
+          <p className="error-content__code">Error {fetchError}</p>
         </div>
       </main>
     );
