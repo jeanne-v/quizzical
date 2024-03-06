@@ -16,6 +16,7 @@ export default function App() {
     setIsGameOn(true);
     if (userScore.length !== 0) {
       setUserScore([]);
+      window.scrollTo(0, 0);
     }
   }
 
