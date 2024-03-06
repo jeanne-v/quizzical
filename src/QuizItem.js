@@ -24,7 +24,7 @@ export default function QuizItem(props) {
     }
 
     return (
-      <div className={classes} key={answerId}>
+      <label htmlFor={answerId} className={classes} key={answerId}>
         <input
           type="radio"
           name={props.id}
@@ -35,10 +35,8 @@ export default function QuizItem(props) {
           checked={props.formData === answer.answer}
           disabled={isOnCorrectionMode}
         />
-        <label htmlFor={answerId} className="quiz__answer-text">
-          {answer.answer}
-        </label>
-      </div>
+        <span className="quiz__answer-text">{answer.answer}</span>
+      </label>
     );
   });
   return (

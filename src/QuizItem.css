@@ -29,8 +29,12 @@
   width: 100%;
   border: 1px solid #4d5b9e;
   border-radius: 8px;
+  padding: 8px 16px;
   text-align: center;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .quiz__answer input {
@@ -38,13 +42,13 @@
   margin: 0;
   opacity: 0;
   width: 0;
+  height: 0;
 }
 
 .quiz__answer-text {
   display: inline-block;
   font-weight: 500;
   line-height: 1.5;
-  padding: 8px 16px;
   cursor: pointer;
   width: 100%;
   user-select: none;
@@ -89,11 +93,5 @@
     flex-direction: row;
     align-items: stretch;
     column-gap: 24px;
-  }
-
-  .quiz__answer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 }
