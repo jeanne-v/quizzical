@@ -36,6 +36,8 @@
 .quiz__answer input {
   appearance: none;
   margin: 0;
+  opacity: 0;
+  width: 0;
 }
 
 .quiz__answer-text {
@@ -44,6 +46,8 @@
   line-height: 1.5;
   padding: 8px 16px;
   cursor: pointer;
+  width: 100%;
+  user-select: none;
 }
 
 .quiz__answer--checked {
@@ -61,6 +65,7 @@
 .quiz__answer--wrong .quiz__answer-text,
 .quiz__answer--other-answers .quiz__answer-text {
   cursor: text;
+  user-select: auto;
 }
 
 .quiz__answer--correct {
