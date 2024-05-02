@@ -82,11 +82,11 @@ export default function App() {
     }
   }, [isGameOn]);
 
-  function handleChange(e) {
+  function handleChange(name, value) {
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
-        [e.target.name]: e.target.value,
+        [name]: value,
       };
     });
     setUserErrorMessage("");

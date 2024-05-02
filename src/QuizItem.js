@@ -23,26 +23,45 @@ export default function QuizItem(props) {
       }
     }
 
+    function handleKeyUp(e) {
+      if (e.code === "Enter" || e.code === "Space") {
+        props.handleChange(props.id, answer.answer);
+      }
+    }
+
     return (
-      <label htmlFor={answerId} className={classes} key={answerId}>
+      <label
+        htmlFor={answerId}
+        className={classes}
+        key={answerId}
+        tabIndex="0"
+        role="radio"
+        aria-labelledby={`${answerId}-text`}
+        aria-checked={props.formData === answer.answer}
+        onKeyUp={handleKeyUp}
+      >
         <input
           type="radio"
           name={props.id}
           value={answer.answer}
           id={answerId}
           required
-          onChange={props.handleChange}
+          onChange={() => props.handleChange(props.id, answer.answer)}
           checked={props.formData === answer.answer}
           disabled={isOnCorrectionMode}
         />
-        <span className="quiz__answer-text">{answer.answer}</span>
+        <span id={`${answerId}-text`} className="quiz__answer-text">
+          {answer.answer}
+        </span>
       </label>
     );
   });
   return (
     <fieldset className="quiz__item">
       <legend className="quiz__question">{props.question}</legend>
-      <div className="quiz__answers">{answersEls}</div>
+      <div className="quiz__answers" role="radiogroup">
+        {answersEls}
+      </div>
     </fieldset>
   );
 }
