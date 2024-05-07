@@ -38,8 +38,15 @@ export default function QuizItem(props) {
         key={answerId}
         tabIndex="0"
         role="radio"
-        aria-labelledby={`${answerId}-text`}
+        aria-label={
+          isOnCorrectionMode
+            ? `${answer.answer}, ${
+                answer.isCorrect ? "correct" : "incorrect"
+              } answer`
+            : answer.answer
+        }
         aria-checked={props.formData === answer.answer}
+        aria-disabled={isOnCorrectionMode}
         onKeyUp={handleKeyUp}
       >
         <input
