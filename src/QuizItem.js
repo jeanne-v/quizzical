@@ -24,8 +24,10 @@ export default function QuizItem(props) {
     }
 
     function handleKeyUp(e) {
-      if (e.code === "Enter" || e.code === "Space") {
-        props.handleChange(props.id, answer.answer);
+      if (!isOnCorrectionMode) {
+        if (e.code === "Enter" || e.code === "Space") {
+          props.handleChange(props.id, answer.answer);
+        }
       }
     }
 
